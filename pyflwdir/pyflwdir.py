@@ -1518,7 +1518,11 @@ class FlwdirRaster(Flwdir):
             a=a,
             b=b,
         )
-        return fldpln.reshape(self.shape), drainh.reshape(self.shape), drainz.reshape(self.shape)
+        return (
+            fldpln.reshape(self.shape),
+            drainh.reshape(self.shape),
+            drainz.reshape(self.shape),
+        )
 
     ### SHORTCUTS ###
 
