@@ -706,9 +706,9 @@
     <span class="k">return</span> <span class="n">hand</span>
 
 
-<span class="k">def</span> <span class="nf">floodplains</span><span class="p">(</span><span class="n">idxs_ds</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">elevtn</span><span class="p">,</span> <span class="n">uparea</span><span class="p">,</span> <span class="n">upa_min</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">floodplains</span><span class="p">(</span><span class="n">idxs_ds</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">elevtn</span><span class="p">,</span> <span class="n">uparea</span><span class="p">,</span> <span class="n">upa_min</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns floodplain boundaries based on a maximum treshold (h) of HAND which is</span>
-<span class="sd">    scaled with upstream area following h ~ A**b.</span>
+<span class="sd">    scaled with upstream area following h ~ a * A**b.</span>
 
 <span class="sd">    Nardi F et al (2019) GFPLAIN250m, a global high-resolution dataset of Earth’s</span>
 <span class="sd">        floodplains Sci. Data 6 180309</span>
@@ -725,6 +725,8 @@
 <span class="sd">        flattened upstream area raster [km2]</span>
 <span class="sd">    upa_min : float, optional</span>
 <span class="sd">        minimum upstream area threshold for streams.</span>
+<span class="sd">    a : float</span>
+<span class="sd">        scale parameter</span>
 <span class="sd">    b : float</span>
 <span class="sd">        scale parameter</span>
 
@@ -739,7 +741,7 @@
     <span class="n">fldpln</span><span class="p">[</span><span class="n">seq</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">idx0</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>  <span class="c1"># down- to upstream</span>
         <span class="k">if</span> <span class="n">uparea</span><span class="p">[</span><span class="n">idx0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">upa_min</span><span class="p">:</span>
-            <span class="n">drainh</span><span class="p">[</span><span class="n">idx0</span><span class="p">]</span> <span class="o">=</span> <span class="n">uparea</span><span class="p">[</span><span class="n">idx0</span><span class="p">]</span> <span class="o">**</span> <span class="n">b</span>
+            <span class="n">drainh</span><span class="p">[</span><span class="n">idx0</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">uparea</span><span class="p">[</span><span class="n">idx0</span><span class="p">]</span> <span class="o">**</span> <span class="n">b</span>
             <span class="n">drainz</span><span class="p">[</span><span class="n">idx0</span><span class="p">]</span> <span class="o">=</span> <span class="n">elevtn</span><span class="p">[</span><span class="n">idx0</span><span class="p">]</span>
             <span class="n">fldpln</span><span class="p">[</span><span class="n">idx0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
@@ -752,7 +754,7 @@
                     <span class="n">fldpln</span><span class="p">[</span><span class="n">idx0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
                     <span class="n">drainz</span><span class="p">[</span><span class="n">idx0</span><span class="p">]</span> <span class="o">=</span> <span class="n">z0</span>
                     <span class="n">drainh</span><span class="p">[</span><span class="n">idx0</span><span class="p">]</span> <span class="o">=</span> <span class="n">h0</span>
-    <span class="k">return</span> <span class="n">fldpln</span>
+    <span class="k">return</span> <span class="n">fldpln</span><span class="p">,</span> <span class="n">drainh</span><span class="p">,</span> <span class="n">drainz</span>
 
 
 <span class="nd">@njit</span>

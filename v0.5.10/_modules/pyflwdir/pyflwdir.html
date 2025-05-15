@@ -1962,9 +1962,9 @@
 
 <div class="viewcode-block" id="FlwdirRaster.floodplains">
 <a class="viewcode-back" href="../../_generated/pyflwdir.FlwdirRaster.floodplains.html#pyflwdir.FlwdirRaster.floodplains">[docs]</a>
-    <span class="k">def</span> <span class="nf">floodplains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elevtn</span><span class="p">,</span> <span class="n">uparea</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upa_min</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">floodplains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elevtn</span><span class="p">,</span> <span class="n">uparea</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upa_min</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns floodplain boundaries based on a maximum treshold (h) of HAND which is</span>
-<span class="sd">        scaled with upstream area (A) following h ~ A**b.</span>
+<span class="sd">        scaled with upstream area (A) following h ~ a * A**b.</span>
 
 <span class="sd">        Nardi F et al (2019) GFPLAIN250m, a global high-resolution dataset of Earth&#39;s</span>
 <span class="sd">            floodplains Sci. Data 6 180309</span>
@@ -1985,15 +1985,20 @@
 <span class="sd">        1D array of int8</span>
 <span class="sd">            floodplain</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">fldpln</span> <span class="o">=</span> <span class="n">dem</span><span class="o">.</span><span class="n">floodplains</span><span class="p">(</span>
+        <span class="n">fldpln</span><span class="p">,</span> <span class="n">drainh</span><span class="p">,</span> <span class="n">drainz</span> <span class="o">=</span> <span class="n">dem</span><span class="o">.</span><span class="n">floodplains</span><span class="p">(</span>
             <span class="n">idxs_ds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">idxs_ds</span><span class="p">,</span>
             <span class="n">seq</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">idxs_seq</span><span class="p">,</span>
             <span class="n">elevtn</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_data</span><span class="p">(</span><span class="n">elevtn</span><span class="p">,</span> <span class="s2">&quot;elevtn&quot;</span><span class="p">),</span>
             <span class="n">uparea</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_data</span><span class="p">(</span><span class="n">uparea</span><span class="p">,</span> <span class="s2">&quot;uparea&quot;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;km2&quot;</span><span class="p">),</span>
             <span class="n">upa_min</span><span class="o">=</span><span class="n">upa_min</span><span class="p">,</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span>
             <span class="n">b</span><span class="o">=</span><span class="n">b</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">fldpln</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">fldpln</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+            <span class="n">drainh</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+            <span class="n">drainz</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+        <span class="p">)</span></div>
 
 
     <span class="c1">### SHORTCUTS ###</span>

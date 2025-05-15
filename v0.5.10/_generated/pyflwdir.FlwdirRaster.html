@@ -566,8 +566,8 @@ areas are in unit metres.</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="pyflwdir.FlwdirRaster.fillnodata.html#pyflwdir.FlwdirRaster.fillnodata" title="pyflwdir.FlwdirRaster.fillnodata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fillnodata</span></code></a>(data, nodata[, direction, how])</p></td>
 <td><p>Returns data where cells with nodata value have been filled with the nearest up- or downstream valid neighbor value.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pyflwdir.FlwdirRaster.floodplains.html#pyflwdir.FlwdirRaster.floodplains" title="pyflwdir.FlwdirRaster.floodplains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">floodplains</span></code></a>(elevtn[, uparea, upa_min, b])</p></td>
-<td><p>Returns floodplain boundaries based on a maximum treshold (h) of HAND which is scaled with upstream area (A) following h ~ A**b.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyflwdir.FlwdirRaster.floodplains.html#pyflwdir.FlwdirRaster.floodplains" title="pyflwdir.FlwdirRaster.floodplains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">floodplains</span></code></a>(elevtn[, uparea, upa_min, a, b])</p></td>
+<td><p>Returns floodplain boundaries based on a maximum treshold (h) of HAND which is scaled with upstream area (A) following h ~ a * A**b.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pyflwdir.FlwdirRaster.geofeatures.html#pyflwdir.FlwdirRaster.geofeatures" title="pyflwdir.FlwdirRaster.geofeatures"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geofeatures</span></code></a>(flowpaths[, xs, ys])</p></td>
 <td><p>Returns a geo-features of flowpaths defined by a list of arrays of linear indices.</p></td>
